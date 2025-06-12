@@ -19,16 +19,7 @@ import '@xterm/xterm/css/xterm.css'
    
   }, [])
   return (
-    <div className='playground-Container'>
-      <div className="editor-container">
-        <div className="files">
-        </div>
-        <div className="editor">
-          
-        </div>
-      </div>
     <div ref={terminalRef} id='termainal' className='terminal-Container'></div>
-    </div>
   )
 }
 export default Terminal;

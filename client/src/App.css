@@ -7,5 +7,14 @@
 }
 .editor-container{
     display: flex;
-    flex-direction: row;
+
+}
+
+/* For Dirs*/
+.Dirs{
+    background-color: grey;
+    padding: 5px;
+}
+.file{
+    cursor: pointer;
 }

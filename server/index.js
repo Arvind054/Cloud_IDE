@@ -70,7 +70,11 @@ io.on('connection', (socket) => {
       socket.emit('terminal:data', '[Error] Shell input not writable');
     }
   });
-
+  // Handle File Content Change
+  socket.on('File:Change', async({FilePath, content})=>{
+    const requiredPath = path.join(userDir, FilePath);
+    await fs.writeFile(requiredPath, content);
+  })
   // Cleanup on disconnect
   socket.on('disconnect', () => {
     console.log('❌ Socket disconnected:', socket.id);
@@ -84,6 +88,13 @@ io.on('connection', (socket) => {
 app.get('/files', async(req, res)=>{  
   const fileTree = await generateFileTree('./User');
   return res.json({tree: fileTree});
+});
+//To get the contern of a file
+app.get("/file/content", async(req, res)=>{
+  const FilePath = req.query.path;
+  const requiredPath = path.join(userDir, FilePath);
+  const content = await fs.readFile(requiredPath, 'utf-8');
+  return res.json({content});
 })
 server.listen(9000, () => {
   console.log('🚀 Server is listening on PORT 9000');
